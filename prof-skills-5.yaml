@@ -1,0 +1,27 @@
+stages:
+  extract:
+    cmd: python step_1.py
+    deps:
+      - step_1.py
+    outs:
+      - data/representations_float32.npz
+      - data/metadata_parsed.csv
+
+  distances:
+    cmd: python step_2.py
+    deps:
+      - step_2.py
+      - data/representations_float32.npz
+      - data/metadata_parsed.csv
+    outs:
+      - data/distances.csv
+
+  visualise:
+    cmd: python step_3.py
+    deps:
+      - step_3.py
+      - data/distances.csv
+    outs:
+      - plots/kde_distributions.png
+      - plots/mean_distances_barplot.png
+      - plots/ratio_by_precision.png
